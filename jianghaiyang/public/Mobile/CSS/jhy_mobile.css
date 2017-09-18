@@ -1,0 +1,25 @@
+
+
+ul {
+    width: 500px;
+    margin: 20px auto;
+    border: 5px solid #eee;
+    background: #99ff99;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    width: 80px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    /*margin: 10px;*/
+    background: #fcc;
+    color: #fff;
+    list-style-type: none;
+}

@@ -1,0 +1,562 @@
+.nav {
+    position: relative;
+    height: 82px;
+    _padding-bottom: 6px;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.nav ul li{
+    float: left;/*让nav中的ul下的li元素右浮动*/
+    list-style-type:none/*去掉nav中 li的小黑点*/
+}
+
+.nav ul li a{
+    width: 50px; /*宽*/
+    height: 18px;   /*高*/
+    color: #000000;  /*用白色字体*/
+    font-size: 12px;  /*用12号字*/
+    /*line-snap: 28px; !*行间距28px，因为飘起来了，所以字段间隙就是28*!*/
+    margin: 0px 5px; /*这样每个li之间左右就有10px的距离，上下有5px距离*/
+    display: block; /*！！！特别重要，因为a本身是联机元素，本身不具有宽和高，
+    把它变成块级元素，这样前面设置的宽和高就能起作用了*/
+    text-align: center; /*让文本居中*/
+    text-decoration: none; /*去掉下划线*/
+}
+
+
+.nav ul li a:hover{
+    color: red;
+}
+/*donate 定义banner的位置*/
+.donate {
+    position: absolute;
+    top: 16px;
+    right: 0px;
+}
+
+.NavTabPadTop {
+    padding-top: 63px;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+/*每次写float的时候都要加个<div style="clear:both"></div>的标签,以前没有注意到这方面的东西.今天重新写样式的时候,就上网搜了下替代的方法.果然在Google中搜到了一篇﻿﻿﻿How To Clear Floats Without Structural Markup的文章,灵活的处理了清空浮动的问题 这样我们只要对父级div引入这个clearfix的类即可,注意引用class时是clearfix，而不是clearfix:after  */
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+
+.logoimg {
+}
+
+.logoimg a{
+    display: block;
+    background: url("../images/logo_nav.png");
+    background-repeat: no-repeat;
+    background-position: -17px -58px;
+    height: 78px;
+    width: 155px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.bannerimg {
+}
+
+.bannerimg a{
+    display: block;
+    background: url("../images/banner_nav.png");
+    background-repeat: no-repeat;
+    background-position: -17px -82px;
+    height: 35px;
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.NavM {
+    width: 100%;
+    background: none repeat scroll 0% 0% #F54343;
+}
+
+.NavMCon {
+    height: 40px;
+}
+
+.wrap {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.NavMCon ul li {
+    height: 29px;
+    float: left;
+    width: 166px;
+    text-align: center;
+    padding: 11px 0px 0px 0px;
+    background: url('https://p1.ifengimg.com/ifeng/ifeng-index/20160122/spritesize47_w1000_h2000.png') no-repeat scroll 0px -100px transparent;
+    list-style: none outside none;
+}
+
+.NavMCon ul li a {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.page-width {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.layout-side {
+    float: left;
+    width: 285px;
+    height: 1200px;
+}
+
+.layout-content {
+    width: 700px;
+    float: right;
+    height: 1200px;
+}
+
+/*.g-br1{*/
+    /*border: 1px solid #cecece;*/
+/*}*/
+
+.g-brdotted{
+    border: 1px solid #dedede;
+    /*border: 1px dotted #cecece;*/
+}
+/*.g-bg1{*/
+    /*background-color: #FFF;*/
+/*}*/
+
+.g_clr:after {
+    content: '\20';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mp10 {
+    margin-top: 10px;
+}
+
+
+.Footer {
+    margin-top: 8px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.footerheader {
+    color: #666;
+    border-bottom: 2px solid #f54343;
+    line-height: 32px;
+}
+
+/*a {*/
+    /*text-decoration: none;*/
+/*}*/
+
+.footerheader a {
+    color: #666;
+}
+
+#copyright {
+    margin: 20px 0;
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+}
+
+#search-box {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    float: right;
+    height: 40px;
+    text-align: center;
+    /*background-color: #999999;*/
+
+}
+
+#weather-box {
+    margin-top: 4px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    float: left;
+    height: 40px;
+    text-align: center;
+}
+
+#selectSearch {
+
+}
+
+#searchinput {
+
+
+}
+
+#searchbtn {
+
+}
+
+#search-box span{
+    float: left;
+}
+.selectSearchBtn {
+    /*border: none;*/
+    margin-left: 40px;
+    width: 65px;
+    height: 36px;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    background: #3385ff;
+    border: 1px solid #2d78f4;
+    outline: medium;
+    /*padding-right: 10px; !*防止箭头挡住字*!*/
+    /*-webkit-appearance: none;*/
+    -webkit-border-radius: 0;
+}
+
+.searchbtn {
+    width: 100px;
+    height: 36px;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    background: #3385ff;
+    border-bottom: 1px solid #2d78f4;
+    outline: medium;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+}
+
+.searchbtn:hover {
+    background: #317ef3;
+    border-bottom: 1px solid #2868c8;
+    box-shadow: 1px 1px 1px #ccc;
+}
+
+
+.searchinput {
+    position: relative;
+    padding-left: 10px;
+    border: 1px solid #b6b6b6;
+    background: #fff;
+    display: inline-block;
+    vertical-align: top;
+    width: 439px;
+    height: 34px;
+    margin-right: 0;
+    border-right-width: 0;
+    border-color: #b8b8b8 transparent #ccc #b8b8b8;
+    overflow: hidden;
+
+}
+
+#lay_content_search_and_weather {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 66px;
+    border-top: 2px solid red;
+    border-bottom: 2px solid red;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.lay_content_hub {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    border: 1px solid #adb;
+    background-color: #FFF;
+    text-align: center;
+
+}
+
+#lay_content_hub_one {
+    height: 188px;
+}
+
+.lay_content_hub ul {
+    list-style: none;
+}
+
+.lay_content_hub ul a {
+    float: left;
+    text-decoration: none;
+    color: #000;
+}
+
+.lay_content_hub ul a:hover {
+    color: #f50;
+    text-decoration: underline;
+}
+
+.lay_content_hub ul span {
+    float: left;
+}
+
+.myweb_site_img_content {
+    width: 16px;
+    height: 16px;
+    cursor: default;
+    border-style: none;
+    border-radius: 3px;
+}
+
+.link_gif_icon {
+    display:inline-block;
+    width:20px;
+    height: 20px;
+    background:url("../images/defaultIcon_hotsite.png");
+    background-repeat: no-repeat;
+    text-align: center;
+    text-decoration: none;
+}
+
+.link_gif_img {
+    display:inline-block;
+    width:20px;
+    height: 20px;
+    background:url("../images/link_icon/thepaper.ico");
+    background-repeat: no-repeat;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+#lay_content_hub_two {
+    height: 128px;
+}
+
+#lay_content_hub_three {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 168px;
+    border: 1px solid #f5e066;
+    background-color: #c8d6ff;
+    text-align: center;
+}
+
+#lay_content_hub_four {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 200px;
+    border: 1px solid #f5c5ee;
+    background-color: #b3e8f5;
+    text-align: center;
+}
+
+#lay_content_hub_five {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 218px;
+    border: 1px solid #b8f59e;
+    background-color: #a6cef5;
+    text-align: center;
+}
+
+
+#lay_side_hub_one {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    height: 221px;
+    border: 1px solid #f5c5ee;
+    background-color: #b3e8f5;
+    text-align: center;
+}
+
+#lay_side_hub_two {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    height: 188px;
+    border: 1px solid #f5c5ee;
+    background-color: #b3e8f5;
+    text-align: center;
+}
+
+#lay_side_hub_three {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    height: 168px;
+    border: 1px solid #f5c5ee;
+    background-color: #b3e8f5;
+    text-align: center;
+}
+
+#lay_side_hub_four {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    height: 168px;
+    border: 1px solid #f5c5ee;
+    background-color: #b3e8f5;
+    text-align: center;
+}
+
+#lay_side_hub_five {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    height: 168px;
+    border: 1px solid #f5c5ee;
+    background-color: #b3e8f5;
+    text-align: center;
+}
+
+.widget-site {
+    width: 685px;
+    padding: 0;
+    position: relative;
+
+}
+
+.site-item {
+    width: 99px;
+    margin-right: 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 3px 5px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #000;
+    float: left;
+    text-align: left;
+}
+
+.site-item-small {
+    width: 88px;
+    margin-right: 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 3px 3px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #000;
+    float: left;
+    text-align: left;
+}
+
+.site-span {
+    width:40px;
+    margin-right: 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 5px 5px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #000;
+    float: left;
+    text-align: left;
+}
+
+.widget-site .gif-icon {
+    width: 30px;
+    height: 22px;
+    top: 0;
+    left: -2px;
+}
+
+.gif-icon {
+    position: absolute;
+}
+.s-br21, .g-br21, .s-br21h:hover, .g-br21h:hover {
+    border: 1px solid #adb;
+}
+
+
+
+.layout-famoussite {
+    position: relative;
+    z-index: 100;
+}
+
+
+.width-nr .widget-navsite .site-bd {
+    width: 685px;
+    padding-left: 22px;
+}
+/*select {*/
+  /*!*Chrome和Firefox里面的边框是不一样的，所以复写了一下*!*/
+  /*border: none;*/
+
+  /*!*很关键：将默认的select选择框样式清除*!*/
+  /*appearance:none;*/
+  /*-moz-appearance:none;*/
+  /*-webkit-appearance:none;*/
+
+  /*!*在选择框的最右侧中间显示小箭头图片*!*/
+  /*!*background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;*!*/
+
+
+  /*!*为下拉小箭头留出一点位置，避免被文字覆盖*!*/
+  /*padding-right: 14px;*/
+    /*outline: none;*/
+
+/*}*/
+
+
+/*!*清除ie的默认选择框样式清除，隐藏下拉箭头*!*/
+/*select::-ms-expand { display: none; }*/
+/*input:focus { border-color:#4791ff transparent #4791ff #4791ff;*/
+    /*border:none;*/
+/*}*/
+/*.s_ipt_wr:focus {*/
+    /*border-color:#4791ff transparent #4791ff #4791ff;*/
+    /*border:none;*/
+
+/*}*/
+body {
+    font-family: "Times New Roman";
+}
