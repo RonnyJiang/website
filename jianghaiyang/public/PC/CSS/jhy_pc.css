@@ -61,7 +61,7 @@
 
 .logoimg a{
     display: block;
-    background: url("../images/logo_nav.png");
+    background: url("https://jianghaiyang.oss-cn-shanghai.aliyuncs.com/images/logo_nav.png");
     background-repeat: no-repeat;
     background-position: -17px -58px;
     height: 78px;
@@ -75,7 +75,7 @@
 
 .bannerimg a{
     display: block;
-    background: url("../images/banner_nav.png");
+    background: url("https://jianghaiyang.oss-cn-shanghai.aliyuncs.com/images/banner_nav.png");
     background-repeat: no-repeat;
     background-position: -17px -82px;
     height: 35px;
