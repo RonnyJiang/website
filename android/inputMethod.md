@@ -65,7 +65,7 @@ android输入法的生命周期
 
 
 ```xml
-<service android:name=".PinyinIME"
+<service android:name=".LtPinyinIME"
     android:label="@string/ime_name"
         android:permission="android.permission.BIND_INPUT_METHOD">
     <intent-filter>
@@ -120,6 +120,51 @@ inputView.setKeyboard(mLatinKeyboard);
     }
 
 ```
-复制代码
+
 
 在该实例中，MyKeyboardView实现了类[KeyboardView](https://developer.android.com/reference/android/inputmethodservice/KeyboardView.html)，用来自定义一个键盘。如果你使用传统的QWERTY键盘，请参见KeyboardView类。
+
+
+
+构建基础输入法应用：
+创建LtPinyinIME类，继承InputMethodService并实现KeyboardView.OnKeyboardActionListener
+重写onPress,onCreateInputView,swipeUp,onRelease,onRelease,onKey,onText.
+在onCreateInputView创建输入法view，在keyboard被创建后，将调用onCreateInputView函数，在onKey方法中响应按键消息。
+
+> 在onCreateInputView创建Keyboard，设置KeyboardView显示的Keyboar<br>
+```java
+     @Override
+     public View onCreateInputView() {
+        mKeyboardView = (KeyboardView)getLayoutInflater().inflate(R.layout.skb_container,null);
+        mKeyboard = new Keyboard(this,R.xml.qwerty);
+        mKeyboardView.setKeyboard(mKeyboard);
+        mKeyboardView.setOnKeyboardActionListener(this);
+
+        return mKeyboardView;
+    }
+```
+> 在onKey方法中响应按键消息，可以添加一些功能按键，指定keycode,来相应按键功能，如在点击按键时播放按键声音，添加关闭软键盘按键等,最终通过InputConnection将输入内用提交给应用显示在编辑框
+
+    @Override
+    public void onKey(int primaryCode, int[] keyCodes) {
+        Log.e(TAG,"Enter onKey ---- primaryCode:"+primaryCode+"; keyCodes:"+keyCodes+"; length:"+keyCodes.length);
+        for (int i=0;i<keyCodes.length;i++){
+            Log.e(TAG,"on onKey --i = "+i+"; -- KEYCODE:"+keyCodes[i]);
+        }
+        InputConnection ic = getCurrentInputConnection();
+        Log.e(TAG,"on onKey -1--- KEYCODE_DELETE:"+Keyboard.KEYCODE_DELETE+"; KEYCODE_DONE:"+Keyboard.KEYCODE_DONE+"; code:"+(char)primaryCode);
+        switch (primaryCode){
+            case Keyboard.KEYCODE_DELETE:
+                ic.deleteSurroundingText(1,0);
+                break;
+            case Keyboard.KEYCODE_CANCEL:
+                handleClose();　　
+                break;
+            default:
+                char code = (char)primaryCode;
+                Log.e(TAG,"on onKey -2--- primaryCode:"+primaryCode+"; code:"+code);
+                ic.commitText(String.valueOf(code),1);
+        }
+    }
+
+
