@@ -1,6 +1,54 @@
-##输入法深入理解
+# 输入法深入理解
+https://dillinger.io/http://www.jianshu.com/p/eb4ab57393f3
+http://blog.csdn.net/imyfriend/article/details/8196363
+介绍输入法之前先介绍一下输入法框架相关的名词缩写：
+IMF（Input MethodFramework）：输入法框架
+IM（Input Method）：输入法
+IMS（Input Method Service）：输入法服务，一般指一个具体输入法对应的服务
+IMMS（Input Method ManagerService）：输入法管理器服务，系统进程的一部分，系统中只有一个该服务的实例
+IMM（Input Method Manager）：输入法管理器，每个客户进程中都包含一个
+IME（Input Method Engine/InputMethod Editor）：指一个具体的输入法，包括其内部的IMS和Binder对象
+CA（Client Application）：客户端进程，这里指使用输入法的进程。
+## 输入法框架
+![输入法框架图](http://ronny.oss-cn-shanghai.aliyuncs.com/frame.png)
+**Binder1: InputConnection**
+这个binder是编辑框做Server端，输入法进程做Client端，主要作用是负责InputMethod进程和应用进程的编辑框的通信，如上屏、查询光标前后字符等。下面一张图显示的是InputConnection模块的类图。IInputContext.aidl表征IMS进程和ClientApp进程的通信协议，两边的实现类分别是IInputConnectionWrapper(Server)和InputConnectionWrapper(Client)；另一方面，两者都会在内部持有一个InputConnection对象，因此我们也使用InputConnection这个接口来表征两者的通信。
 
-###从实现一个android输入法的角度来分析android输入法。
+**BINDER2: InputMethodClient**
+IMMS查找和IMS对应的客户端应用进程，并负责通知应用进程绑定/解绑输入法。
+```java
+oneway interface IInputMethodClient {
+    void setUsingInputMethod(boolean state);
+    void onBindMethod(in InputBindResult res);
+    // unbindReason corresponds to InputMethodClient.UnbindReason.
+    void onUnbindMethod(int sequence, int unbindReason);
+    void setActive(boolean active, boolean fullscreen);
+    void setUserActionNotificationSequenceNumber(int sequenceNumber);
+    void reportFullscreenMode(boolean fullscreen);
+}
+```
+1、  客户端进程（CA）：在每个CA中都存在唯一一个IMM，UI控件（View,TextView,EditText等）可以通过它来访问IMMS，用来操作输入法，比如，打开，关闭，切换输入法等。可以通过Context.getSystemService()来获取一个InputMethodManager的实例。
+IMM中有2个Binder对象，一个是可编辑UI控件对应的Binder对象（InputContext），输入法进程可以通过InputContext将虚拟按键事件（即通过触屏消息转换而来的按键事件）传递给UI控件；另一个是InputMethodClient，IMMS将通过它访问CA，例如IMMS通过它将IMS的InputMethodSession传递给CA，从而使得CA可以直接访问IMS。
+2、输入法进程：和客户端进程类似，它也有2个Binder对象，一个是IMS对应的Binder对象，IMMS将通过它去控制输入法，例如：显示或者隐藏输入法窗口；另一个是专门供客户端使用的Binder对象，客户端主要通过它来向输入法进程传送按键事件。
+具体可参见下图：
+![输入法框架图](http://ronny.oss-cn-shanghai.aliyuncs.com/frame1.png)
+处理的消息有两种：
+    按键消息，由客户端进程接收，如果客户端进程判断当前有输入法窗口，则需要跨进程转交给InputMethod进程
+    触屏消息（触摸在输入法窗口中），由输入法处理，结束后把结果跨进程提交给客户端进程
+
+　
+## CA调IMM
+.调用显示系统默认的输入法:
+InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+imm.showSoftInput(m_receiverView(接受软键盘输入的视图(View)),InputMethodManager.SHOW_FORCED(提供当前操作的标记，SHOW_FORCED表示强制显示));
+
+.调用隐藏系统默认的输入法
+((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+##　输入法服务
+
+##　输入法应用
+### 从实现一个android输入法的角度来分析android输入法。
 
 扩展的输入法框架，允许应用为用户提供不同的输入法，比如触屏键盘甚至语音输入。只要安装，用户就可以从系统设置中选择自己喜欢使用的输入法，并且在整个系统环境中使用；在同一时刻，只有一种输入法可以使用。
 
@@ -54,8 +102,7 @@ inputType也是可以任意组合。
 
 
 ####- 输入法的生命周期
-![android输入法的生命周期](inputmethod_lifecycle_image.png)
-
+![android输入法的生命周期](http://ronny.oss-cn-shanghai.aliyuncs.com/inputmethod_lifecycle_image2.png)
 android输入法的生命周期
 
 
@@ -114,7 +161,7 @@ Input view
             (MyKeyboardView) getLayoutInflater().inflate( R.layout.input, null);
 
         inputView.setOnKeyboardActionListener(this);
-inputView.setKeyboard(mLatinKeyboard);
+        inputView.setKeyboard(mLatinKeyboard);
 
         return mInputView;
     }
@@ -144,7 +191,7 @@ inputView.setKeyboard(mLatinKeyboard);
     }
 ```
 > 在onKey方法中响应按键消息，可以添加一些功能按键，指定keycode,来相应按键功能，如在点击按键时播放按键声音，添加关闭软键盘按键等,最终通过InputConnection将输入内用提交给应用显示在编辑框
-
+```java
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         Log.e(TAG,"Enter onKey ---- primaryCode:"+primaryCode+"; keyCodes:"+keyCodes+"; length:"+keyCodes.length);
@@ -167,4 +214,4 @@ inputView.setKeyboard(mLatinKeyboard);
         }
     }
 
-
+```
